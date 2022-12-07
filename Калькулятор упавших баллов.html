@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+	<meta charset="utf-8" name="viewport" content="width=device-width, initial-scale=1">
+	<title>Калькулятор</title>
+<style>
+.custom-btn {
+  width: 130px;
+  height: 40px;
+  color: #fff;
+  border-radius: 5px;
+  padding: 10px 25px;
+  font-family: 'Lato', sans-serif;
+  font-weight: 500;
+  background: transparent;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  display: inline-block;
+   box-shadow:inset 2px 2px 2px 0px rgba(255,255,255,.5),
+   7px 7px 20px 0px rgba(0,0,0,.1),
+   4px 4px 5px 0px rgba(0,0,0,.1);
+  outline: none;
+}
+/* 3 */
+.btn-3 {
+  background: rgb(0,172,238);
+background: linear-gradient(0deg, rgba(0,172,238,1) 0%, #14016B 100%);
+  width: 130px;
+  height: 40px;
+  line-height: 42px;
+  padding: 0;
+  border: none;
+  
+}
+.btn-3 span {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+.btn-3:before,
+.btn-3:after {
+  position: absolute;
+  content: "";
+  right: 0;
+  top: 0;
+   background: #14016B;
+  transition: all 0.3s ease;
+}
+.btn-3:before {
+  height: 0%;
+  width: 2px;
+}
+.btn-3:after {
+  width: 0%;
+  height: 2px;
+}
+.btn-3:hover{
+   background: transparent;
+  box-shadow: none;
+}
+.btn-3:hover:before {
+  height: 100%;
+}
+.btn-3:hover:after {
+  width: 100%;
+}
+.btn-3 span:hover{
+   color: #14016B;
+}
+.btn-3 span:before,
+.btn-3 span:after {
+  position: absolute;
+  content: "";
+  left: 0;
+  bottom: 0;
+   background: #14016B;
+  transition: all 0.3s ease;
+}
+.btn-3 span:before {
+  width: 2px;
+  height: 0%;
+}
+.btn-3 span:after {
+  width: 0%;
+  height: 2px;
+}
+.btn-3 span:hover:before {
+  height: 100%;
+}
+.btn-3 span:hover:after {
+  width: 100%;
+}
+
+.parent {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: auto;   
+}
+
+table {
+font-family: "Lucida Sans Unicode", "Lucida Grande", Sans-Serif;
+font-size: 14px;
+text-align: left;
+border-collapse: collapse;
+border-radius: 20px;
+box-shadow: 0 0 0 10px #14016B;
+color: #000000;
+}
+th {
+padding: 10px 8px;
+background: #252F48;
+}
+table th:first-child {
+border-top-left-radius: 20px;
+}
+table th:last-child {
+border-top-right-radius: 20px;
+}
+td {
+border-top: 10px solid #14016B;
+padding: 8px;
+}
+table td:first-child {
+border-bottom-left-radius: 20px;
+}
+table td:last-child {
+border-bottom-right-radius: 20px;
+}
+input {
+  border-radius:5px;
+  border: solid #eee;
+  box-shadow:0 0 15px 4px rgba(0,0,0,0.06);
+}
+
+@media only screen and (max-width: 500px){
+table {
+height: 50%;
+width: 80%;
+}}
+
+</style>
+<script language="JavaScript">
+var igrade = 0, idays = 0, iscore = 0;
+function my_func()
+{
+	// Автор: Тамбиев Ислам
+	// Number.parseInt() - отвечает за перевод из строки в число
+	igrade = Number.parseInt(document.form1.grade.value);
+	idays = Number.parseInt(document.form1.days.value);
+	iscore = Number.parseInt(document.form1.score.value);
+    
+ 	// Высчитываем 
+    if (igrade < 3 || igrade > 5){
+     	alert("Введите верную оценку");
+    }
+    else if (iscore < 1){
+     	alert("Введите верное количество баллов");
+    }
+	else if (idays < 1){
+    	alert("Введите верное количетво дней");
+    }
+	else if (idays < 15){
+     	var sum1 = 0;
+ 		sum1 = (igrade / 5) * iscore
+        document.form1.screen.value = sum1;
+    }
+	else{
+     	var sum1 = 0;
+ 		sum1 = ((3 + (igrade - 3) * (14 / idays)) * iscore) / 5
+        document.form1.screen.value = sum1;
+    }
+}
+
+// Максимальное количество снежинок на экране
+      var snowmax = 250;
+      // Массив цветов снежинок
+      var snowcolor = new Array("#AAAACC", "#DDDDFF", "#CCCCDD", "#F3F3F3", "#F0FFFF", "#FFFFFF", "#EFF5FF");
+      // Массив шрифты для снежков
+      var snowtype = new Array("Arial Black", "Arial Narrow", "Times", "Comic Sans MS");
+      // Знак для снежков
+      var snowletter = "*";
+      // Скорость падение
+      var sinkspeed = 0.3;
+      // Максимальный размер снежков
+      var snowmaxsize = 40;
+      // Минимальный размер снежков
+      var snowminsize = 8;
+       // Параметр определяет где будет падать снег:
+       /*
+       1 - на всём экране,
+       2 - слева,
+       3 - в центре,
+       4 - справа
+       */
+      var snowingzone = 1;
+
+      // Массив снежков (их id)
+      var snow = new Array();
+      // Отступы с низу
+      var marginbottom;
+      // Отступы с права
+      var marginright;
+      // Таймер
+      var timer;
+      var i_snow = 0;
+       // размер шага по движению вдоль оси OX
+      var x_mv = new Array();
+       // массив суммарного отступа для снежинки, зависит от
+       // скорости и величины смещения
+      var crds = new Array();
+       // массив, который содержит отклонение для снежинки влево и вправо
+       // определяется в initsnow()
+      var lftrght = new Array();
+      // Данные о браузере
+       // получаем строку о браузере (параметры среды),
+       // но она будет одна и содержать много информации
+       /*
+       Пример:
+       Mozilla/5.0 (Windows NT 6.1; WOW64; Trident/7.0; SLCC2;
+       .NET CLR 2.0.50727; .NET CLR 3.5.30729; .NET CLR 3.0.30729;
+       Media Center PC 6.0; MASM; .NET4.0C; .NET4.0E; rv:11.0)
+       like Gecko
+       */
+      var browserinfos = navigator.userAgent;
+       // Далее для более подробной информации обычно парсят эту строчку
+       // с помощью регулярных выражений для более подробного извлечения
+       // информации
+       // Следующие три строчки - это получение трёх булевых переменных,
+       // если переменная true - значит это именно тот браузер
+      var ie5 = document.all && document.getElementById && !browserinfos.match(/Opera/);
+      var ns6 = document.getElementById&&!document.all;
+      var opera = browserinfos.match(/Opera/);
+      // Переменная примет значение true, если наш браузер - один из данных трёх
+      var browserok = ie5 || ns6 || opera;
+      /*
+       Примечание. Получать тип браузера нам нужно для того, чтобы
+       гарантировано правильно отобразить работу скрипта. DOM имеет свои
+       особенности в разных браузерах.
+       ie5 - это не обязательно именно этот тип браузера, это может быть
+       целое семейство.
+       */
+
+       // скрипт запустится, если наш браузер - один из трёх допустимых
+      if (browserok) {
+       // метод onload() объекта window будет ассоциирован с initsnow()
+       window.onload = initsnow;
+      }
+      // Вспомогательная функция для определения целого числа из диапазона range
+      function randommaker(range) {
+       rand = Math.floor(range * Math.random());
+       return rand;
+      }
+      // устанавливаем параметры для прорисовки снежинок
+      function initsnow() {
+       // В зависимости от типа браузера мы по-разному
+       // получаем параметры области для прорисовки снежинок.
+       if (ie5 || opera) {
+       // высота
+       marginbottom = document.body.clientHeight;
+       // ширина рабочей области
+       marginright = document.body.clientWidth;
+       }
+       else if (ns6) {
+       marginbottom = window.innerHeight;
+       marginright = window.innerWidth;
+       }
+
+       // разница между минимальным и максимальным размером снежинок
+       var snowsizerange = snowmaxsize - snowminsize;
+
+       // цикл по всем снежинкам
+       for (i = 0; i <= snowmax; i++) {
+       // первоначальный суммарный отступ равен 0, т.к.
+       // это накопительная переменная
+       crds[i] = 0;
+       // отклонение снежинки, если, например, поставить значение
+       // Math.random() * 100, то эффект будет больше поход на снежную
+       // бурю
+       lftrght[i] = Math.random() * 15;
+       // определяем размер шага с которым снежинка будет двигаться
+       // влево и вправо, преодолевая значение lftrght[i]
+       x_mv[i] = 0.03 + Math.random() / 10;
+       // Снежинка - это текстовый символ, самый простой способ
+       // нарисовать снежинку с собственным стилем - это использовать тег span
+       // http://htmlbook.ru/html/span <-- вот тут написано про этот тег
+       // присвоив id этому тегу, мы можем индивидуально обратиться к нему,
+       // т.е. snow[] содержит id снежинок (тегов <span>)
+       snow[i] = document.getElementById("s" + i);
+       // Далее определяем особенности прорисовки снежинок
+       // Выбираем тип шрифта, которым будем отображать снежинку, для
+       // этого используем функцию (её мы определили выше) randommaker() - получает целое случайное число
+       // из определённого диапазона.
+       // Возможные шрифты мы заранее поместили в массив, их можно расширить, как и цвета
+       snow[i].style.fontFamily = snowtype[randommaker(snowtype / length)];
+       // выбираем размер снежинки, маленькие снежинки будут
+       // восприниматься пользователем как находящиеся на заднем плане,
+       // большие - на переднем
+       // Для тех, кому интересно, рекомендую книгу "Разумный гла"
+       // Р. Л. Грегори. В книге описаны различные оптические субъективные эффекты,
+       // психология зрения
+       snow[i].size = randommaker(snowsizerange) + snowminsize;
+       snow[i].style.fontSize = snow[i].size + "px";
+       // Определяем цвет
+       snow[i].style.color = snowcolor[randommaker(snowcolor.length)];
+       // Определяем скорость снежинки, обратите внимание, что скорость
+       // зависит от размера
+       snow[i].sink = sinkspeed * snow[i].size / 5;
+       // Теперь определяем X и Y снежинки, причем X зависит от параметра
+       // snowingzone (по умолчанию он равен 1)
+       if (snowingzone == 1) {
+       snow[i].posx = randommaker(marginright - snow[i].size);
+       }
+       if (snowingzone == 2) {
+       snow[i].posx = randommaker(marginright / 2 - snow[i].size);
+       }
+       if (snowingzone == 3) {
+       snow[i].posx = randommaker(marginright / 2 - snow[i].size) + marginright / 4;
+       }
+       if (snowingzone == 4) {
+       snow[i].posx = randommaker(marginright / 2 - snow[i].size) + marginright / 2;
+       }
+       // Определяем y
+       snow[i].posy = randommaker(2 * marginbottom - marginbottom - 2 * snow[i].size);
+       // переводим относительные величины в конкретные, в нашем случае -
+       // в пиксели
+       snow[i].style.left = snow[i].posx + "px";
+       snow[i].style.top = snow[i].posy + "px";
+       }
+       // начинаем прорисовку снега
+       movesnow();
+      }
+      // функция реализует динамику снега
+      function movesnow() {
+       // цикл по снежинкам
+       for(i = 0; i <= snowmax; i++) {
+       // пусть снежинка переместиться немного влево или вправо
+       crds[i] += x_mv[i];
+       // перемещение снежинки вниз
+       snow[i].posy += snow[i].sink;
+       snow[i].style.left = snow[i].posx + lftrght[i] * Math.sin(crds[i]) + "px";
+       snow[i].style.top = snow[i].posy + "px";
+       // Если снежинка всё ещё в области, где её можно прорисовать
+       // по оси Y она выше отступа снизу в два своих размера
+       // или по оси X она правее на три своих размера
+       if (snow[i].posy >= marginbottom - 3 * snow[i].size ||
+       parseInt(snow[i].style.left) > (marginright - 3 * lftrght[i])) {
+       // получить новые координаты X
+       if (snowingzone == 1) {
+       snow[i].posx = randommaker(marginright - snow[i].size);
+       }
+       if (snowingzone == 2) {
+       snow[i].posx = randommaker(marginright / 2 - snow[i].size);
+       }
+       if (snowingzone == 3) {
+       snow[i].posx = randommaker(marginright / 2 - snow[i].size) + marginright / 4;
+       }
+       if (snowingzone == 4) {
+       snow[i].posx = randommaker(marginright / 2 - snow[i].size) + marginright / 2;
+       }
+       snow[i].posy = 0;
+       }
+       }
+       // позволяет вызвать функцию один раз через определённый интервал времени:
+       // 25 мил. сек. задержки
+       var timer = setTimeout("movesnow()", 25);
+      }
+      // отображаем все снежинки в виде текста в <span>
+       // после каждого выполнения movesnow()
+      for (i = 0; i <= snowmax; i++) {
+       document.write("<span id='s" + i + "' style='position:absolute;top:-" + snowmaxsize + "px;'>" + snowletter + "</span>");
+      }
+</script>
+</head>
+<body style="background: #BEBEBE;">
+<center>
+
+<form name="form1" class="parent">
+<table>
+<tbody>
+
+<tr align="middle">
+<td colSpan="7"><b><font color="#006400">Калькулятор упавших баллов PRO MAX</font></b></td>
+</tr>
+
+<tr align="middle">
+<td>ОЦЕНКА (3 - 5)</td>
+<td colSpan="1"><input  name="grade" value="5" size="4"></td>
+</tr>
+
+<tr align="middle">
+<td>КОЛ - ВО ДНЕЙ ПРОШЕДШИХ С КТ</td>
+<td colSpan="1"><input name="days" value="14" size="4"></td>
+</tr>
+
+<tr align="middle">
+<td>БАЛЛЫ ЗА ОЦЕНКУ ПЯТЬ</td>
+<td colSpan="1"><input name="score" value="20" size="4"></td>
+</tr>
+
+<tr align="middle">
+<td colSpan="3">Результат:</td>
+</tr>
+
+<tr align="middle">
+<td colSpan="7"><input name="screen" value="0" size="20"></td>
+</tr>
+
+<tr align="middle">
+<td colSpan="4"><button class="custom-btn btn-3" name="result" onclick="my_func()" type="button" ><span>ПОСЧИТАТЬ</span></button></td>
+</tr>
+
+</tbody>
+</table>
+</center>
+</form>
+</body>
+</html>
