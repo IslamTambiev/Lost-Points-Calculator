@@ -1,0 +1,310 @@
+/*Убрать полосу прокрутки для всей страницы*/
+::-webkit-scrollbar {
+    width: 0;
+  }
+  
+/* BUTTON */
+.custom-btn {
+    width: 130px;
+    height: 40px;
+    color: #fff;
+    border-radius: 5px;
+    padding: 10px 25px;
+    font-family: 'Lato', sans-serif;
+    font-weight: 500;
+    background: transparent;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    display: inline-block;
+    box-shadow: inset 2px 2px 2px 0px rgba(255, 255, 255, .5),
+        7px 7px 20px 0px rgba(0, 0, 0, .1),
+        4px 4px 5px 0px rgba(0, 0, 0, .1);
+    outline: none;
+}
+
+.btn-3 {
+    background: rgb(0, 172, 238);
+    background: linear-gradient(0deg, rgba(0, 172, 238, 1) 0%, #14016B 100%);
+    width: 130px;
+    height: 40px;
+    line-height: 42px;
+    padding: 0;
+    border: none;
+
+}
+
+.btn-3 span {
+    position: relative;
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+
+.btn-3:before,
+.btn-3:after {
+    position: absolute;
+    content: "";
+    right: 0;
+    top: 0;
+    background: #14016B;
+    transition: all 0.3s ease;
+}
+
+.btn-3:before {
+    height: 0%;
+    width: 2px;
+}
+
+.btn-3:after {
+    width: 0%;
+    height: 2px;
+}
+
+.btn-3:hover {
+    background: transparent;
+    box-shadow: none;
+}
+
+.btn-3:hover:before {
+    height: 100%;
+}
+
+.btn-3:hover:after {
+    width: 100%;
+}
+
+.btn-3 span:hover {
+    color: #14016B;
+}
+
+.btn-3 span:before,
+.btn-3 span:after {
+    position: absolute;
+    content: "";
+    left: 0;
+    bottom: 0;
+    background: #14016B;
+    transition: all 0.3s ease;
+}
+
+.btn-3 span:before {
+    width: 2px;
+    height: 0%;
+}
+
+.btn-3 span:after {
+    width: 0%;
+    height: 2px;
+}
+
+.btn-3 span:hover:before {
+    height: 100%;
+}
+
+.btn-3 span:hover:after {
+    width: 100%;
+}
+
+.parent {
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: auto;
+}
+
+/* MAIN */
+.form-center {
+    display:flex;
+    justify-content: center;
+}
+
+body {
+    background:  #BEBEBE;
+}
+
+table {
+    font-family: "Lucida Sans Unicode", "Lucida Grande", Sans-Serif;
+    font-size: 14px;
+    text-align: left;
+    border-collapse: collapse;
+    border-radius: 20px;
+    box-shadow: 0 0 0 10px #14016B;
+    color: #000000;
+}
+
+th {
+    padding: 10px 8px;
+    background: #252F48;
+}
+
+table th:first-child {
+    border-top-left-radius: 20px;
+}
+
+table th:last-child {
+    border-top-right-radius: 20px;
+}
+
+td {
+    border-top: 10px solid #14016B;
+    padding: 8px;
+}
+
+tr {
+    text-align: center;
+}
+
+table td:first-child {
+    border-bottom-left-radius: 20px;
+}
+
+table td:last-child {
+    border-bottom-right-radius: 20px;
+}
+
+input {
+    border-radius: 5px;
+    border: solid #eee;
+    box-shadow: 0 0 15px 4px rgba(0, 0, 0, 0.06);
+}
+
+@media only screen and (max-width: 500px) {
+    table {
+        height: 50%;
+        width: 80%;
+    }
+}
+
+
+/* CheckBox */
+
+.divbtn, .inpbtn, label,
+*::before,
+*::after {
+  transition: 400ms all ease-in-out 50ms;
+  box-sizing: border-box;
+  backface-visibility: hidden;
+}
+
+.inpbtn[type="checkbox"] {
+  display: none;
+}
+
+.divbtn {
+  height: 30px;
+  width: 60px;
+  background: rgba(205, 214, 233, 1);
+  position: relative;
+  top: calc(10px);
+  left: calc(100% - 70px);
+  box-shadow: 0 0 2px rgba(205, 214, 233,1);
+  border-radius: 50px;
+}
+
+.inpbtn[type="checkbox"]:checked ~ div {
+  background: rgba(142, 186, 232,1);
+  box-shadow: 0 0 2px rgba(142, 186, 232,1);
+}
+
+.inpbtn[type="checkbox"]:checked ~ div label {
+  left: 34px;
+  transform: rotate(360deg);
+}
+
+label {
+  height: 22px;
+  width: 22px;
+  background: rgba(255, 255, 255, 1);
+  position: absolute;
+  top: 4px;
+  left: 4px;
+  cursor: pointer;
+  border-radius: 50px;
+}
+
+label::before {
+  content: '❅';
+  color: #e4eefb;
+  font-size: 28px;
+  height: 0px;
+  width: 0px;  
+  position: absolute;
+  top: calc(0% - 9px);
+  left: calc(0% - 1px);
+}
+
+.inpbtn[type="checkbox"]:checked ~ div label::before{
+  content: '❆';
+  font-size: 28px;
+  color: #c1dcec;
+  top: calc(0% - 10px);
+  left: calc(0% - 1px);
+  background: rgba(73,168,68,1);
+}
+
+
+/*////////////////////////////////////////////////////*/
+/*
+body {
+	background-color: #92a2ff;
+	color: var(--text-color);
+	height: 100vh;
+	overflow: hidden;
+	background-image: linear-gradient(to top, #b99396, #f7e0cd, #cedfe6, #f3f4f6);
+	
+}*//*
+body {
+    background-color: #707ff2;
+    color: var(--text-color);
+	height: 100vh;
+	overflow: hidden;
+    background-image: linear-gradient(
+        to top,
+        #705557,
+        #c2aba5,
+        #f5e3d1,
+        #9cc4e0,
+        #73a3c5,
+        #2679a8
+    );
+}*/
+body {
+    background-color: #2a41c3;
+    color: var(--text-color);
+	height: 100vh;
+	overflow: hidden;
+    background-image: linear-gradient(
+        to top,
+        #363d59,
+        #605e77,
+        #696e91,
+        #9c81a8,
+        #d189a8,
+        #febcbc
+    );
+}/*
+body.night {
+    background-color: #040b30;
+    background-image: linear-gradient(
+        to bottom,
+        #0d122c,
+        #0f1736,
+        #111c40,
+        #14204b,
+        #162556,
+        #17285d,
+        #182c63,
+        #192f6a,
+        #19326e,
+        #193572,
+        #183876,
+        #183b7a
+    );
+}
+*/
