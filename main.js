@@ -28,10 +28,27 @@ function pointsCalculator() {
     }
 }
 
+const mq = window.matchMedia('(max-width: 500px)')
+if (mq.matches) {
+    // ширина окна меньше, чем 500px
+    // Максимальное количество снежинок на экране
+    var snowmax = 150;
+    // Максимальный размер снежков
+    var snowmaxsize = 20;
+    // Минимальный размер снежков
+    var snowminsize = 6;
+} else {
+    // ширина окна больше, чем 500px
+    // Максимальное количество снежинок на экране
+    var snowmax = 350;
+    // Максимальный размер снежков
+    var snowmaxsize = 40;
+    // Минимальный размер снежков
+    var snowminsize = 8;
+}
+
 // Флаг снежинки
 var flag = 0;
-// Максимальное количество снежинок на экране
-var snowmax = 200;
 // Массив цветов снежинок
 var snowcolor = new Array("#AAAACC", "#DDDDFF", "#CCCCDD", "#F3F3F3", "#F0FFFF", "#FFFFFF", "#EFF5FF");
 // Массив шрифты для снежков
@@ -40,10 +57,6 @@ var snowtype = new Array("Arial Black", "Arial Narrow", "Times", "Comic Sans MS"
 var snowletter = "*";
 // Скорость падение
 var sinkspeed = 0.3;
-// Максимальный размер снежков
-var snowmaxsize = 40;
-// Минимальный размер снежков
-var snowminsize = 8;
 // Массив снежков (их id)
 var snow = new Array();
 // Отступы с низу
@@ -78,8 +91,8 @@ var browserinfos = navigator.userAgent;
 // информации
 // Следующие три строчки - это получение трёх булевых переменных,
 // если переменная true - значит это именно тот браузер
-var ie5 = document.all && document.getElementById && !browserinfos.match(/Opera/);
-var ns6 = document.getElementById && !document.all;
+var ie5 = document && document.getElementById && !browserinfos.match(/Opera/);
+var ns6 = document.getElementById && !document;
 var opera = browserinfos.match(/Opera/);
 // Переменная примет значение true, если наш браузер - один из данных трёх
 var browserok = ie5 || ns6 || opera;
